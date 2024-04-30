@@ -6,39 +6,46 @@ import imgOficina from '../imagen/oficina.png'
 import imgBloque from '../imagen/bloque.png'
 
 export const GestionarArticulos = () => {
-    let procesos = [
-        {
-            id:1,
-            imagen: imgBloque,
-            titulo: "Asignar articulos",
-            descripcion: " aqui se puede asignar articulos a las oficinas",
-            ruta: '/asignar/articulos'
-        },
-        {
-            id:2,
-            imagen: imgOficina,
-            titulo: "Listar articulos por oficina",
-            descripcion: " aqui puedes visualizar articulos por oficina y gestionarlos",
-            ruta:"/listar/articulos"
-        }
-    ]
+  let procesos = [
+    {
+      id: 1,
+      imagen: imgBloque,
+      titulo: "Asignar articulos",
+      descripcion: " aqui se puede asignar articulos a las oficinas",
+      ruta: '/asignar/articulos'
+    },
+    {
+      id: 2,
+      imagen: imgOficina,
+      titulo: "Listar articulos por Bloque Y Oficina",
+      descripcion: " aqui puedes visualizar articulos por oficina y gestionarlos",
+      ruta: "/listar/articulos"
+    },
+    {
+      id: 3,
+      imagen: imgOficina,
+      titulo: "Buscar articulo por Oficina",
+      descripcion: " aqui puedes visualizar articulos por oficina",
+      ruta: "/listar/articulosofi"
+    }
+  ]
 
   return (
-    <Box sx={{ flexGrow: 1,padding: '40px'}}>
-    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} justifyContent="center">
-      <Grid item xs={2} sm={4} md={4}>
-        {procesos.map(pro=>(
+    <Box sx={{ flexGrow: 1, padding: '40px' }}>
+      <Grid container spacing={4} justifyContent="center">
+        {procesos.map(pro => (
+          <Grid key={pro.id} item xs={12} sm={6} md={4} lg={3}>
             <Card
-                img= {pro.imagen}
-                titulo = {pro.titulo}
-                descripcion = {pro.descripcion}
-                ruta={pro.ruta}
+              img={pro.imagen}
+              titulo={pro.titulo}
+              descripcion={pro.descripcion}
+              ruta={pro.ruta}
             />
+          </Grid>
         ))
         }
       </Grid>
-    </Grid>
-  </Box>
-  
+    </Box>
+
   );
 }

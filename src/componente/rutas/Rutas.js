@@ -6,6 +6,7 @@ import { CrearOficina } from '../CrearOficina';
 import { GestionarArticulos } from '../GestionarArticulos';
 import { AsignarArticulo } from '../AsignarArticulo';
 import { ListarArticulos } from '../ListarArticulos';
+import {ListarArticulosOfi} from '../ListarArticulosOfi'
 
 export const Rutas = () => {
   return (
@@ -18,6 +19,7 @@ export const Rutas = () => {
             <Route path='/gestionar' element={<GestionarArticulos/>}/>
             <Route path='/asignar/articulos' element={<AsignarArticulo/>}/>
             <Route path='/listar/articulos' element={<ListarArticulos/>}/>
+            <Route path='/listar/articulosofi' element={<ListarArticulosOfi/>}/>
         </Routes>
     </BrowserRouter>
   )

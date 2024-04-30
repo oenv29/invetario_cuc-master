@@ -6,31 +6,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useNavigate } from 'react-router-dom';
-import { guardarOficina,obtenerBloques} from '../componente/funciones/Funciones'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {obtenerOficinasPorBlo,obtenerArtiuloValidar,guardarAsignacion} from './funciones/Funciones'
+import {obtenerOficinasPorBlo,obtenerArtiuloValidar,guardarAsignacion,obtenerArticulos,obtenerBloques} from './funciones/Funciones'
 
 export const AsignarArticulo = () => {
-    let articulos = [
-        {
-            id: 1,
-            fecha_ingreso: "22/06/2022",
-            fecha_garantia: "22/06/2022",
-            marca: "LENOVO",
-            modelo: "Thinkcentre"
-        },
-        {
-             id: 2,
-            fecha_ingreso: "23/06/2022",
-            fecha_garantia: "26/06/2022",
-            marca: "LENOVO",
-            modelo: "Thinkcentre"
-        }
-        ]
-
     const navegar = useNavigate();
 
     const [formData, setFormData] = React.useState({
@@ -41,6 +23,8 @@ export const AsignarArticulo = () => {
     
     const [bloque,setBloque] =  React.useState([])
     const [oficina,setOficina] =  React.useState([])
+    const [articulos,setArticulos] =  React.useState([])
+    const [estado,setEstado] =  React.useState(false)
     const [idAr,setIdAr] =  React.useState({
         id_articulo:''
     })
@@ -73,7 +57,7 @@ export const AsignarArticulo = () => {
 
     const guardarDatos = async(e) => {
         e.preventDefault();
-        const validar = await obtenerArtiuloValidar(idAr)
+        let validar = await obtenerArtiuloValidar(idAr)
         if(validar.contar == 0){
             const result = await guardarAsignacion(formData);
         
@@ -85,10 +69,12 @@ export const AsignarArticulo = () => {
                         id_articulo:''
                     }
                 );
+                setEstado(false)
             }else{
                 console.log(result.message);
             }   
         }else{
+            setEstado(true)
             console.log("Articulo ya se encuentra en la base de datos...")
         }
     };
@@ -104,12 +90,21 @@ export const AsignarArticulo = () => {
         }
     }
 
+    const obtenerArticulo = async()=>{
+        let res = await obtenerArticulos();
+        setArticulos(res)
+    }
+    
     useEffect(()=>{
         obtener();
+        obtenerArticulo();
     },[])
 
     return (
         <>
+            {estado && <Typography variant="h4" gutterBottom>
+                            Articulo ya se encuentra en la base de datos...
+                       </Typography>}
             <Container maxWidth="sm">
                 <Box sx={{ marginTop: 4 }}>
                     <Typography variant="h4" gutterBottom>
@@ -164,7 +159,7 @@ export const AsignarArticulo = () => {
                                       onChange={handleChangeArticulo}
                                       >
                                     {articulos.map(art =>(
-                                      <MenuItem key={art.id} value={art.id}>{art.modelo}</MenuItem>
+                                      <MenuItem key={art.id} value={art.id}>{art.tipo}</MenuItem>
                                     ))}
                                   </Select>  
                         </FormControl>

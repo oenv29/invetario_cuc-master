@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useNavigate } from 'react-router-dom';
-import { guardar,obtenerArticulos} from '../componente/funciones/Funciones'
+import { guardar} from '../componente/funciones/Funciones'
 
 export const CrearBloques = () => {
 
@@ -43,14 +43,6 @@ export const CrearBloques = () => {
     const ir = () => {
         navegar('/')
     };
-
-    const obtener = async()=>{
-        let res = await obtenerArticulos();
-        console.log(res);
-    }
-    useEffect(()=>{
-        obtener();
-    },[])
 
     return (
         <>
